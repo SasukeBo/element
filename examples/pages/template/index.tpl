@@ -137,7 +137,7 @@
     }
 
     li {
-      width: 33.33333%;
+      width: 25%;
       padding: 0 19px;
       box-sizing: border-box;
       float: left;
@@ -333,6 +333,18 @@
             <router-link
               active-class="active"
               to="/<%= lang >/component/layout"
+              exact><%= 5 >
+            </router-link>
+          </div>
+        </li>
+        <li>
+          <div class="card">
+            <img src="~examples/assets/images/resource.png" alt="">
+            <h3><%= 10 ></h3>
+            <p><%= 11 ></p>
+            <router-link
+              active-class="active"
+              to="/<%= lang >/demo/console"
               exact><%= 5 >
             </router-link>
           </div>
