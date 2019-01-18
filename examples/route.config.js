@@ -69,17 +69,17 @@ const loadDocs = function(lang, path) {
 const LOAD_DEMOS_MAP = {
   'zh-CN': path => {
     return r => require.ensure([], () =>
-      r(require(`./demos/zh-CN${path}.vue`)),
+      r(require(`./demos/zh-CN${path}`)),
     'zh-CN');
   },
   'en-US': path => {
     return r => require.ensure([], () =>
-      r(require(`./demos/en-US${path}.vue`)),
+      r(require(`./demos/en-US${path}`)),
     'en-US');
   },
   'es': path => {
     return r => require.ensure([], () =>
-      r(require(`./demos/es${path}.vue`)),
+      r(require(`./demos/es${path}`)),
     'es');
   }
 };
@@ -132,7 +132,7 @@ const registerRoute = (config, route, model) => {
         description: page.description,
         lang
       },
-      name: `${model}-${lang}${page.title || page.name}`,
+      name: `${model}-${lang}${page.name || page.title}`,
       component: component.default || component
     };
 

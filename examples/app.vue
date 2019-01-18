@@ -174,7 +174,7 @@
 </style>
 
 <template>
-  <div id="app" :class="{ 'is-component': isComponent }">
+  <div id="app" :class="{ 'is-component': isComponent || isDemo }">
     <main-header v-if="lang !== 'play' && !isDemo"></main-header>
     <div class="main-cnt">
       <router-view></router-view>

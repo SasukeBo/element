@@ -1,0 +1,43 @@
+/*       Base Color
+-------------------------- */
+$white: #fff;
+$black: #000;
+$purple: #b007fd;
+$green: #42c55e;
+$orange: #f5a623;
+$red: #e9485c;
+$blue: #20a8d8;
+$pink: #e78e8e;
+$dark: #333;
+$dark2: #666;
+$dark3: #999;
+$light: #d8d8d8;
+$light2: #e8e8e8;
+$light3: #f2f2f2;
+
+/*       Theme Color
+-------------------------- */
+$--color-primary: $purple;
+$--color-success: $green;
+$--color-warning: $orange;
+$--color-danger: $red;
+$--color-info: $blue;
+$--color-white: $white;
+$--color-dark: $dark;
+
+/*       Background color
+-------------------------- */
+$--color-background-primary: $light3;
+$--color-background-dark: $dark;
+$--color-background-white: $white;
+
+/*       Font color
+-------------------------- */
+$--color-font-white: $white;
+$--color-font-black: $dark;
+$--color-font-gray: $dark2;
+$--color-font-light: $dark3;
+
+/*       Box Shadow
+-------------------------- */
+$--box-shadow-primary: 0 1px 2px 0 rgba(0,0,0,.05);
