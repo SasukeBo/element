@@ -30,6 +30,7 @@ function wrap(render) {
 }
 
 const webpackConfig = {
+  devtool: 'sourceMap',
   entry: isProd ? {
     docs: './examples/entry.js',
     'element-ui': './src/index.js'
@@ -128,7 +129,7 @@ const webpackConfig = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
       },
       {
         test: /\.html$/,
@@ -198,7 +199,7 @@ if (isProd) {
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          { loader: 'css-loader?sourceMap', options: { importLoaders: 1 } },
           'postcss-loader'
         ]
       })
