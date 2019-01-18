@@ -296,6 +296,12 @@
           <li class="nav-item">
             <router-link
               active-class="active"
+              :to="`/${ lang }/demo`">{{ langConfig.demos }}
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link
+              active-class="active"
               :to="`/${ lang }/resource`"
               exact>{{ langConfig.resource }}
             </router-link>

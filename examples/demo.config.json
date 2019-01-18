@@ -1,0 +1,48 @@
+{
+  "zh-CN": [
+    {
+      "name": "主页",
+      "children": [
+        {
+          "path": "/console",
+          "title": "控制台"
+        },
+        {
+          "path": "/homepage1",
+          "title": "主页1"
+        },
+        {
+          "path": "/homepage2",
+          "title": "主页2"
+        }
+      ]
+    },
+    {
+      "name": "页面",
+      "children": [
+        {
+          "path": "/profile",
+          "title": "个人主页"
+        }
+      ]
+    },
+    {
+      "name": "应用",
+      "children": []
+    },
+    {
+      "name": "高级",
+      "children": []
+    },
+    {
+      "name": "用户",
+      "children": []
+    },
+    {
+      "name": "设置",
+      "children": []
+    }
+  ],
+  "en-US": [],
+  "es": []
+}
