@@ -214,9 +214,6 @@ if (isProd) {
       },
       sourceMap: false
     }),
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash:7].css'
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

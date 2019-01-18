@@ -175,11 +175,11 @@
 
 <template>
   <div id="app" :class="{ 'is-component': isComponent }">
-    <main-header v-if="lang !== 'play'"></main-header>
+    <main-header v-if="lang !== 'play' && !isDemo"></main-header>
     <div class="main-cnt">
       <router-view></router-view>
     </div>
-    <main-footer v-if="lang !== 'play' && !isComponent"></main-footer>
+    <main-footer v-if="lang !== 'play' && !isDemo && !isComponent"></main-footer>
   </div>
 </template>
 
@@ -213,6 +213,9 @@
       },
       isComponent() {
         return /^component-/.test(this.$route.name || '');
+      },
+      isDemo() {
+        return /^demo-/.test(this.$route.name || '');
       }
     },
 

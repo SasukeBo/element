@@ -1,4 +1,5 @@
 import navConfig from './nav.config.json';
+import demoConfig from './demo.config.json';
 import langs from './i18n/route.json';
 
 const LOAD_MAP = {
@@ -17,6 +18,26 @@ const LOAD_MAP = {
       r(require(`./pages/es/${name}.vue`)),
     'es');
   }
+};
+
+const INDEX_MAP = {
+  'zh-CN': {
+    'component': 0,
+    'demo': 3
+  },
+  'en-US': {
+    'component': 1,
+    'demo': 4
+  },
+  'es': {
+    'component': 2,
+    'demo': 5
+  }
+};
+
+const REDIRECT_PATH_MAP = {
+  'component': 'installation',
+  'demo': 'console'
 };
 
 const load = function(lang, path) {
@@ -45,14 +66,35 @@ const loadDocs = function(lang, path) {
   return LOAD_DOCS_MAP[lang](path);
 };
 
-const registerRoute = (navConfig) => {
-  let route = [];
-  Object.keys(navConfig).forEach((lang, index) => {
-    let navs = navConfig[lang];
+const LOAD_DEMOS_MAP = {
+  'zh-CN': path => {
+    return r => require.ensure([], () =>
+      r(require(`./demos/zh-CN${path}.vue`)),
+    'zh-CN');
+  },
+  'en-US': path => {
+    return r => require.ensure([], () =>
+      r(require(`./demos/en-US${path}.vue`)),
+    'en-US');
+  },
+  'es': path => {
+    return r => require.ensure([], () =>
+      r(require(`./demos/es${path}.vue`)),
+    'es');
+  }
+};
+
+const loadDemos = function(lang, path) {
+  return LOAD_DEMOS_MAP[lang](path);
+};
+
+const registerRoute = (config, route, model) => {
+  Object.keys(config).forEach((lang) => {
+    let navs = config[lang];
     route.push({
-      path: `/${ lang }/component`,
-      redirect: `/${ lang }/component/installation`,
-      component: load(lang, 'component'),
+      path: `/${ lang }/${ model }`,
+      redirect: `/${ lang }/${ model }/${REDIRECT_PATH_MAP[model]}`,
+      component: load(lang, model),
       children: []
     });
     navs.forEach(nav => {
@@ -60,22 +102,29 @@ const registerRoute = (navConfig) => {
       if (nav.groups) {
         nav.groups.forEach(group => {
           group.list.forEach(nav => {
-            addRoute(nav, lang, index);
+            addRoute(nav, lang, model);
           });
         });
       } else if (nav.children) {
         nav.children.forEach(nav => {
-          addRoute(nav, lang, index);
+          addRoute(nav, lang, model);
         });
       } else {
-        addRoute(nav, lang, index);
+        addRoute(nav, lang, model);
       }
     });
   });
-  function addRoute(page, lang, index) {
-    const component = page.path === '/changelog'
-      ? load(lang, 'changelog')
-      : loadDocs(lang, page.path);
+  function addRoute(page, lang, model) {
+    var component = null;
+    // TODO 将来模块多了改为switch
+    if (model === 'component') {
+      component = page.path === '/changelog'
+        ? load(lang, 'changelog')
+        : loadDocs(lang, page.path);
+    } else if (model === 'demo') {
+      component = loadDemos(lang, page.path);
+    }
+
     let child = {
       path: page.path.slice(1),
       meta: {
@@ -83,17 +132,20 @@ const registerRoute = (navConfig) => {
         description: page.description,
         lang
       },
-      name: 'component-' + lang + (page.title || page.name),
+      name: `${model}-${lang}${page.title || page.name}`,
       component: component.default || component
     };
 
-    route[index].children.push(child);
+    route[INDEX_MAP[lang][model]].children.push(child);
   }
 
   return route;
 };
 
-let route = registerRoute(navConfig);
+let route = [];
+registerRoute(navConfig, route, 'component');
+registerRoute(demoConfig, route, 'demo');
+console.log(route);
 
 const generateMiscRoutes = function(lang) {
   let guideRoute = {
