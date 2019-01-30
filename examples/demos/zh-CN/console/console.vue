@@ -2,85 +2,56 @@
   <div class="u-console">
     <el-row :gutter="15">
       <el-col :span="8">
-        <div class="l-con--card">
-          <div class="l-card--title">快捷方式</div>
-          <div class="l-card--body">
-            <convenient></convenient>
-          </div>
-        </div>
+        <convenient></convenient>
       </el-col>
       <el-col :span="8">
-        <div class="l-con--card">
-          <div class="l-card--title">待办事项</div>
-          <div class="l-card--body">
-            <div style="height: 185px;"></div>
-          </div>
-        </div>
+        <todos></todos>
       </el-col>
       <el-col :span="8">
-        <div class="l-con--card">
-          <div class="l-card--title">版本信息</div>
-          <div class="l-card--body">
-            <div style="height: 185px;"></div>
-          </div>
-        </div>
+        <version></version>
       </el-col>
     </el-row>
 
     <el-row :gutter="15">
       <el-col :span="16">
-        <div class="l-con--card">
-          <div class="l-card--title">数据概览</div>
-          <div class="l-card--body">
-            <div style="height: 332px;"></div>
-          </div>
-        </div>
+        <data-overview></data-overview>
       </el-col>
       <el-col :span="8">
         <el-row>
-          <div class="l-con--card">
-            <div class="l-card--title">效果报告</div>
-            <div class="l-card--body">
-              <div style="height: 127px;"></div>
-            </div>
-          </div>
+          <effect title="效果报告" :progresses="effectProgresses">
+            <template slot="progressText__1">
+              转化率（日同比28%
+              <el-tooltip effect="dark" content="增长" placement="top">
+                <i class="el-icon-caret-top"></i>
+              </el-tooltip>
+              ）
+            </template>
+
+            <template slot="progressText__2">
+              签到率（日同比11%
+              <el-tooltip effect="dark" content="下降" placement="top">
+                <i class="el-icon-caret-bottom"></i>
+              </el-tooltip>
+              ）
+            </template>
+          </effect>
         </el-row>
         <el-row>
-          <div class="l-con--card">
-            <div class="l-card--title">效果报告</div>
-            <div class="l-card--body">
-              <div style="height: 127px;"></div>
-            </div>
-          </div>
+          <effect title="实时监控" :progresses="monitoringProgresses"></effect>
         </el-row>
       </el-col>
     </el-row>
 
     <el-row :gutter="15">
       <el-col :span="16">
-        <div class="l-con--card">
-          <div class="l-card--title">今日热搜</div>
-          <div class="l-card--body">
-            <div style="height: 470px;"></div>
-          </div>
-        </div>
+        <hot-topics></hot-topics>
       </el-col>
       <el-col :span="8">
         <el-row>
-          <div class="l-con--card">
-            <div class="l-card--title">产品动态</div>
-            <div class="l-card--body">
-              <div style="height: 60px;"></div>
-            </div>
-          </div>
+          <dong-tai></dong-tai>
         </el-row>
         <el-row>
-          <div class="l-con--card">
-            <div class="l-card--title">作者心语</div>
-            <div class="l-card--body">
-              <div style="height: 272px;"></div>
-            </div>
-          </div>
+          <concept></concept>
         </el-row>
       </el-col>
     </el-row>
@@ -88,15 +59,46 @@
 </template>
 <script>
 import Convenient from './convenient';
+import Todos from './todos';
+import Version from './version';
+import Effect from './effect';
+import DataOverview from './data-overview';
+import HotTopics from './hot-topics';
+import DongTai from './dongtai';
+import Concept from './concept';
 
 export default {
   components: {
-    Convenient
+    Convenient,
+    Todos,
+    Version,
+    DataOverview,
+    Effect,
+    HotTopics,
+    DongTai,
+    Concept
+  },
+
+  data() {
+    return {
+      effectProgresses: [
+        { percentage: 65, text: '', color: '#5FB878' },
+        { percentage: 32, text: '', color: '#5FB878' }
+      ],
+
+      monitoringProgresses: [
+        { percentage: 58, text: 'CPU使用率', color: '#5FB878' },
+        { percentage: 90, text: '内存占用率', color: '#FF5722' }
+      ]
+    };
+  },
+
+  methods: {
   }
 };
 </script>
 <style lang="scss">
-@import '~demo-css/demo-vars.scss';
+@import '~demo-css/demo-vars';
 
 .u-console {
   padding: 15px;
@@ -115,6 +117,28 @@ export default {
   border-bottom: 1px solid $light2;
   color: $--color-font-black;
   font-size: 14px;
+
+  .l-title--indicators {
+    float: right;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    padding: 0 5px;
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      background: $--color-background-light2;
+      border-radius: 50%;
+      margin: 0 3px;
+      transition: background 0.3s ease;
+
+      &.selected {
+        background: $--color-background-dark2;
+      }
+    }
+  }
 }
 
 .l-card--body {
