@@ -45,8 +45,6 @@ export default {
 
   data() {
     return {
-      percentage1: 65,
-      percentage2: 32
     };
   }
 };
