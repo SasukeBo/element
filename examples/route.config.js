@@ -145,7 +145,6 @@ const registerRoute = (config, route, model) => {
 let route = [];
 registerRoute(navConfig, route, 'component');
 registerRoute(demoConfig, route, 'demo');
-console.log(route);
 
 const generateMiscRoutes = function(lang) {
   let guideRoute = {

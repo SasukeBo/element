@@ -30,6 +30,7 @@ function wrap(render) {
 }
 
 const webpackConfig = {
+  devtool: 'inline-source-map',
   entry: isProd ? {
     docs: './examples/entry.js',
     'element-ui': './src/index.js'
@@ -49,6 +50,9 @@ const webpackConfig = {
     host: '0.0.0.0',
     port: 8085,
     publicPath: '/',
+    allowedHosts: [
+      '.demo.cn'
+    ],
     noInfo: true
   },
   module: {
